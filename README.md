@@ -1,104 +1,44 @@
-# ReportEngine (scaffold)
+Hey everyone 👋
 
-Monorepo scaffold for the ReportEngine project.
+Here's the detailed project breakdown for **ReportEngine**, an enterprise-level reporting dashboard I'm building. The goal is to create a high-performance, full-stack reporting tool capable of handling large datasets smoothly.
 
-Quick start
+### The Big Picture
 
-1. Install dependencies from the repository root:
+* **Project Goal:** To deliver a robust, enterprise-grade reporting dashboard.
+* **Repo Structure:** It's a monorepo with a Node.js backend and a React frontend.
+* **Backend Focus:** The backend handles everything from database migrations and query optimization to test coverage for core reporting and pagination logic.
+* **Frontend Focus:** The frontend is a React app designed for a clean user experience.
 
-```bash
-npm install
-```
+---
 
-2. From the root start both services:
+### Timeline & Progress
 
-```bash
-npm run dev
-```
+The deadline is **December 15**, and the realistic timeline to get this to a polished, enterprise-ready state is **5-6 months** working part-time. My plan assumes a cadence of **15 hours per week** to ensure deep focus on complex parts of the build.
 
-This starts the backend on port 4000 and the frontend on port 5173 by default.
+This slower pace allows for better quality control:
+* More time for complex database work and query optimization.
+* Thorough testing and debugging cycles.
+* Better performance tuning and robust error handling.
 
-Database seeding
+---
 
-1. Start a Postgres instance (local or Supabase) and get a `DATABASE_URL`.
-2. From the backend package, run:
+### What I'm Building & Why It Matters
 
-```bash
-cd packages/backend
-npm install
-DATABASE_URL=postgresql://user:pass@localhost:5432/reportengine npm run seed
-```
+This project isn't just a simple dashboard; it's a demonstration of skills critical for building scalable applications.
 
-This will create tables and insert sample regions, 500 users, and 5,000 transactions.
+| Feature | Key Skill Demonstrated |
+| :--- | :--- |
+| **Database & Queries** | Advanced DB programming, query optimization, and handling high-volume datasets using strategies like materialized views. |
+| **Code Quality** | Writing clean, maintainable, and scalable code for both the backend (Node) and frontend (React). |
+| **Testing** | Building comprehensive test suites to ensure logic, pagination, and reporting are reliable at scale. |
+| **Deployment** | Handling the full-stack deployment process for a modern web application. |
 
-Admin tasks
+The core tech stack includes **React** for the frontend, **Node.js** for the backend, and **Supabase/Postgres** as the database.
 
-1. Create indexes and optional materialized view (run in psql or via migration):
+---
 
-```bash
-psql $DATABASE_URL -f packages/backend/migrations/001_add_indexes_and_mv.sql
-```
+### Want to See More?
 
-2. Populate/refresh materialized view:
-
-```bash
-export DATABASE_URL='postgresql://USER:PASS@HOST:5432/reportengine'
-node packages/backend/scripts/refresh_mv.js
-```
-
-3. Check MV status or refresh via admin endpoints (protect with ADMIN_TOKEN):
-
-```bash
-# set token
-export ADMIN_TOKEN=your-secret
-# check
-curl -H "x-admin-token: $ADMIN_TOKEN" http://localhost:4000/api/admin/mv-status
-# refresh
-curl -X POST -H "x-admin-token: $ADMIN_TOKEN" http://localhost:4000/api/admin/refresh-mv
-```
-
-## Docker-based local dev (quick)
-
-If you use Docker Desktop you can run a local Postgres and iterate quickly:
-
-1. Start Postgres:
-
-```bash
-docker compose up -d db
-```
-
-2. Apply migrations, seed data, and refresh materialized view:
-
-```bash
-export DATABASE_URL='postgresql://user:pass@localhost:5432/reportengine'
-psql "$DATABASE_URL" -f packages/backend/migrations/001_add_indexes_and_mv.sql
-cd packages/backend
-node src/seed.js
-node scripts/refresh_mv.js
-```
-
-3. Start servers:
-
-```bash
-# backend
-export USE_MV=true
-export ADMIN_TOKEN=admintoken
-cd packages/backend
-npm install
-npm run dev
-
-# frontend (in a separate terminal)
-cd packages/frontend
-npm install
-npm run dev
-```
-
-4. Helpful commands:
-
-```bash
-# check MV row count
-psql "$DATABASE_URL" -c "SELECT COUNT(*) FROM mv_region_daily;"
-
-# run explain helper
-node packages/backend/scripts/explain.js
-```
+I'm happy to dive deeper! I can:
+* Share a more condensed, sprint-by-sprint project roadmap to show how I'll hit the **December 15** deadline.
+* Provide a closer look at the key files, especially the database migration scripts and test suites.
