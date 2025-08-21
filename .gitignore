@@ -1,0 +1,10 @@
+node_modules
+.next
+dist
+build
+.env
+*.log
+.idea
+.vscode
+ReportEngine/
+.git.parent-backup-2025-08-20_2211
