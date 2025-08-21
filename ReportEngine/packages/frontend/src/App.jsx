@@ -30,7 +30,8 @@ export default function App() {
     setLoading(true)
     setError(null)
     const useCursor = typeof overrideCursor !== 'undefined' ? overrideCursor : cursor
-    const url = new URL('http://localhost:4000/api/reports/summary')
+  const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+  const url = new URL(`${API_BASE.replace(/\/+$/, '')}/api/reports/summary`)
     url.searchParams.set('start', start)
     url.searchParams.set('end', end)
     url.searchParams.set('groupBy', groupBy)

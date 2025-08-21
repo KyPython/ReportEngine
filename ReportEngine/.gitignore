@@ -1,8 +1,33 @@
-node_modules
-.next
-dist
-build
-.env
+# OS / editor
+.DS_Store
+.vscode/
 *.log
-.idea
-.vscode
+
+# Node / JS
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json     # keep only if you intentionally want it versioned; remove if not
+
+# Build / caches
+dist/
+build/
+coverage/
+.cache/
+.eslintcache
+
+# Temp and runtime artifacts
+*.env
+*.local
+*.pid
+*.seed
+/deploy/
+/deploy.log
+**/tmp/
+packages/**/tmp/
+packages/**/tmp/*.json
+
+# Misc
+.idea/
