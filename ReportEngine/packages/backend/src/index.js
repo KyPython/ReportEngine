@@ -6,14 +6,32 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Resolve DATABASE_URL but be tolerant of placeholder values (e.g. some CI envs set a sample like 'HOST')
+// Resolve DATABASE_URL. In non-production we tolerate missing or placeholder values
+// by falling back to localhost. In production we fail fast so the platform (Render)
+// surfaces a clear error instead of silently using localhost.
 const DEFAULT_DB = 'postgresql://user:pass@localhost:5432/reportengine';
-let DATABASE_URL = process.env.DATABASE_URL || DEFAULT_DB;
-// If someone left a placeholder hostname like HOST in the connection string, replace with localhost
-if (DATABASE_URL && DATABASE_URL.includes('HOST')) {
-  console.warn('DATABASE_URL contains placeholder "HOST" — falling back to localhost');
-  DATABASE_URL = DATABASE_URL.replace(/HOST/g, 'localhost');
+const rawDatabaseUrl = process.env.DATABASE_URL;
+let DATABASE_URL = rawDatabaseUrl || DEFAULT_DB;
+
+// If someone left a placeholder hostname like HOST in the connection string,
+// in production abort; in non-production warn and replace with localhost.
+if (rawDatabaseUrl && rawDatabaseUrl.includes('HOST')) {
+  if (process.env.NODE_ENV === 'production') {
+    console.error('DATABASE_URL contains placeholder "HOST" in production — aborting. Set a valid DATABASE_URL in the Render environment settings.');
+    // Exit with non-zero so Render shows the failure clearly
+    process.exit(1);
+  } else {
+    console.warn('DATABASE_URL contains placeholder "HOST" — falling back to localhost (non-production)');
+    DATABASE_URL = rawDatabaseUrl.replace(/HOST/g, 'localhost');
+  }
 }
+
+// If no DATABASE_URL was provided in production, abort so the deploy fails clearly.
+if (process.env.NODE_ENV === 'production' && !rawDatabaseUrl) {
+  console.error('No DATABASE_URL provided in production — aborting. Please set DATABASE_URL in your Render service environment variables.');
+  process.exit(1);
+}
+
 const pool = new Pool({ connectionString: DATABASE_URL });
 
 // Helper to run queries. In test mode we swallow DB errors and return empty rows
