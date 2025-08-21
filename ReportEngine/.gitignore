@@ -30,4 +30,5 @@ packages/**/tmp/
 packages/**/tmp/*.json
 
 # Misc
-.idea/
+.idea/node_modules/
+**/node_modules/
