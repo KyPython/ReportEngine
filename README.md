@@ -1,5 +1,3 @@
-Hey everyone 👋
-
 Here's the detailed project breakdown for **ReportEngine**, an enterprise-level reporting dashboard I'm building. The goal is to create a high-performance, full-stack reporting tool capable of handling large datasets smoothly.
 
 ### The Big Picture
@@ -8,17 +6,6 @@ Here's the detailed project breakdown for **ReportEngine**, an enterprise-level 
 * **Repo Structure:** It's a monorepo with a Node.js backend and a React frontend.
 * **Backend Focus:** The backend handles everything from database migrations and query optimization to test coverage for core reporting and pagination logic.
 * **Frontend Focus:** The frontend is a React app designed for a clean user experience.
-
----
-
-### Timeline & Progress
-
-The deadline is **December 15**, and the realistic timeline to get this to a polished, enterprise-ready state is **5-6 months** working part-time. My plan assumes a cadence of **15 hours per week** to ensure deep focus on complex parts of the build.
-
-This slower pace allows for better quality control:
-* More time for complex database work and query optimization.
-* Thorough testing and debugging cycles.
-* Better performance tuning and robust error handling.
 
 ---
 
